@@ -1,9 +1,9 @@
-import sys
 import random
 import time
 from socket import socket, AF_INET, SOCK_DGRAM
 
-SERVER_IP   = '192.168.0.105'
+
+SERVER_IP = raw_input("Server IP: ")
 PORT_NUMBER = 6006
 SIZE = 1024
 
