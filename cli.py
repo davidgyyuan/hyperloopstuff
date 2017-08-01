@@ -11,6 +11,9 @@ mySocket = socket(AF_INET, SOCK_DGRAM)
 mySocket.connect((SERVER_IP, PORT_NUMBER))
 
 def fillData():
+    """
+    :return: A string with the encoded data received from pod.
+    """
     n = 10
     inputdata = ()
     for i in range(n):

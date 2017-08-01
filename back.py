@@ -15,8 +15,10 @@ mySocket = socket(AF_INET, SOCK_DGRAM)
 mySocket.bind((hostName, PORT_NUMBER))
 SERVER_IP = ''
 
+
 class Frame(Tkinter.Frame):
     def __init__(self, parent):
+        """ Sets up instance variables"""
         Tkinter.Frame.__init__(self, parent)
         self.parent = parent
         self.tree = ttk.Treeview(self.parent, columns='data')
@@ -25,6 +27,7 @@ class Frame(Tkinter.Frame):
         self.init_data()
 
     def initialize_user_interface(self):
+        """ Sets up user interface"""
         self.parent.title("512 Hyperloop Display Panel: No client connected")
         self.parent.grid_rowconfigure(0, weight=1)
         self.parent.grid_columnconfigure(0, weight=1)
@@ -38,20 +41,29 @@ class Frame(Tkinter.Frame):
         self.button.grid(row=1, columnspan=1, sticky='n')
 
     def init_data(self):
+        """ Initializes treeview with default numbers"""
         for i in range(len(measurementList)):
             self.tree.insert('', 'end', iid=i+1, text=measurementList[i], values=defaultValues[i])
 
 
 def updateData(frame, newData):
+    """
+    Updates the treeview in the frame with data found in newData.
+
+    :param frame: The Tkinter frame with a treeview to display the data.
+    :param newData: List with numbers to be displayed.
+    """
     for i in range(len(measurementList)):
             frame.tree.set(i+1, column="#1", value=newData[i])
 
 
 def cmdStop():
+    """Function used to send stop signal"""
     mySocket.sendto('s'*35, (SERVER_IP, PORT_NUMBER))
 
 
 def count():
+    """Continuously receives data from client"""
     global SERVER_IP
     while not root.state() == 'normal':
         pass
