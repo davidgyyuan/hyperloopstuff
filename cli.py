@@ -3,12 +3,12 @@ import time, struct
 from socket import socket, AF_INET, SOCK_DGRAM, gethostbyname
 import threading
 
-SERVER_IP = raw_input("Server IP: ")
+SERVER_IP = '192.168.0.' + raw_input("Server IP: ")
 PORT_NUMBER = 3000
 SIZE = 1024
 
 mySocket = socket(AF_INET, SOCK_DGRAM)
-#mySocket.connect((SERVER_IP, PORT_NUMBER))
+# mySocket.connect((SERVER_IP, PORT_NUMBER))
 hostName = gethostbyname('0.0.0.0')
 mySocket.bind((hostName, PORT_NUMBER))
 
@@ -31,12 +31,12 @@ def checkButton():
     Continously checks for signal that emergency stop has activated or for a time update.
     """
     while True:
-        (load, addr) = mySocket.recvfrom(35)
-        if load == 's'*35:
+        (load, addr) = mySocket.recvfrom(SIZE)
+        if len(load) == 35:
             print "EMERGENCY STOP"
         else:
-            time = load.split()[1]
-            print time
+            seconds = load.split()[1]
+            print seconds
 
 threading.Thread(target=checkButton).start()
 while True:
