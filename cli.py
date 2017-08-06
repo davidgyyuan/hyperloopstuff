@@ -1,5 +1,6 @@
 import random
-import time, struct
+import time
+import struct
 from socket import socket, AF_INET, SOCK_DGRAM, gethostbyname
 import threading
 
@@ -35,7 +36,10 @@ def fillData():
 
 def checkButton():
     """
-    Continously checks for signal that emergency stop has activated or for a time update.
+    Continously checks for...
+        - Signal that emergency.
+        - A time update.
+        - New output data from localhost
     """
     global inputData
     while True:
@@ -65,5 +69,6 @@ while True:
             mySocket.sendto(data, (SERVER_IP, PORT_NUMBER))
             prevData = data
         except:
-            pass
+            # Not a big deal just try again...
+            time.sleep(.5)
 
