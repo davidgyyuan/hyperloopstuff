@@ -28,12 +28,15 @@ def fillData():
 
 def checkButton():
     """
-    Continously checks for signal that emergency stop has activated.
+    Continously checks for signal that emergency stop has activated or for a time update.
     """
     while True:
         (load, addr) = mySocket.recvfrom(35)
         if load == 's'*35:
             print "EMERGENCY STOP"
+        else:
+            time = load.split()[1]
+            print time
 
 threading.Thread(target=checkButton).start()
 while True:
