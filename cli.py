@@ -25,7 +25,7 @@ def fillData():
     global inputData
 
     if isDebug:
-        for _ in 8:
+        for i in 8:
             inputData.append(int(random.random() * 10))
             time.sleep(.5)
     for i in range(10 - len(inputData)):
